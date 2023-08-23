@@ -1,0 +1,17 @@
+.reg{
+width: 300px;
+height: 500px;
+border: 1px solid black;
+border-radius: 20px;
+
+}
+.log{
+    width: 300px;
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.wrapper{
+    display: flex;
+    gap: 35px;
+}

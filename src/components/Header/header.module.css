@@ -1,0 +1,20 @@
+.header {
+  width: 100%;
+  background-color: rgb(75, 75, 200);
+  height: 90px;
+  align-items: center;
+  display: flex;
+}
+.list {
+  margin: 0px;
+  display: flex;
+  list-style: none;
+  font-size: 25px;
+  gap: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.listItem {
+  color: aliceblue;
+  text-decoration: none;
+}
