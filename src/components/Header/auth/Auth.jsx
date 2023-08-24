@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createUser } from 'redux/apiRequests';
 import { loginUser } from 'redux/authSlice';
-import { tokenSelector } from 'redux/selectors';
+import { isLoggedSelector, tokenSelector } from 'redux/selectors';
 import styles from './auth.module.css';
 
 const Auth = () => {
   const dispatch = useDispatch();
   const auth = useSelector(tokenSelector);
-  console.log('auth: ', auth);
-
-  // useEffect(() => {
-  //   console.log(auth);
-  // }, [dispatch, auth]);
+  const navigate = useNavigate();
+  const isLogged = useSelector(isLoggedSelector);
 
   const postAuth = async e => {
     e.preventDefault();
@@ -23,6 +21,9 @@ const Auth = () => {
     };
     console.log(body);
     await createUser(body);
+    e.target[0].value = '';
+    e.target[1].value = '';
+    e.target[2].value = '';
   };
 
   const loginHandler = async e => {
@@ -32,6 +33,8 @@ const Auth = () => {
       password: e.target[1].value,
     };
     dispatch(loginUser(body));
+    e.target[0].value = '';
+    e.target[1].value = '';
   };
 
   return (
@@ -41,14 +44,14 @@ const Auth = () => {
           <input placeholder="name" type="text" name="regName" />
           <input placeholder="email" type="email" name="regEmail" />
           <input placeholder="password" type="password" name="regPass" />
-          <button type="submit">Send</button>
+          <button type="submit">Registration</button>
         </form>
       </div>
       <div className={styles.log}>
         <form onSubmit={loginHandler}>
           <input placeholder="email" type="email" />
           <input placeholder="password" type="text" />
-          <button type="submit">Send</button>
+          <button type="submit">LogIn</button>
         </form>
       </div>
     </div>

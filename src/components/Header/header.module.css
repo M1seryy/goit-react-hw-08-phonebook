@@ -18,3 +18,7 @@
   color: aliceblue;
   text-decoration: none;
 }
+.user {
+  position: absolute;
+  right: 50px;
+}
