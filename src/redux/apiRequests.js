@@ -13,32 +13,30 @@ const setTokenToLocal = token => {
 export const refresh = async () => {
   const token = localStorage.getItem('token');
   setToken(JSON.parse(localStorage.getItem('token')));
-  setToken(JSON.parse(localStorage.getItem('token')));
   if (token) {
     const { data } = await instanceAuth('/users/current');
-    // setTokenToLocal(data.token);
     return data;
   }
 };
 
-const instanceContacts = axios.create({
-  baseURL: `https://connections-api.herokuapp.com`,
-});
+// const instanceContacts = axios.create({
+//   baseURL: `https://connections-api.herokuapp.com`,
+// });
 const instanceAuth = axios.create({
   baseURL: `https://connections-api.herokuapp.com`,
 });
 export const getAllContacts = async () => {
-  const response = await instanceContacts('/contacts');
+  const response = await instanceAuth('/contacts');
   return response.data;
 };
 
 export const createNewContact = body => {
-  const response = instanceContacts.post('/contacts', body);
+  const response = instanceAuth.post('/contacts', body);
   console.log(response);
   return response;
 };
 export const deleteContact = id => {
-  instanceContacts.delete(`/contacts/${id}`);
+  instanceAuth.delete(`/contacts/${id}`);
   console.log(id);
   return id;
 };

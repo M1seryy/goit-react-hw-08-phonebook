@@ -34,7 +34,6 @@ const authSlice = createSlice({
       state.isRefreshing = false;
     },
     [refreshTokenThunk.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.profile = payload;
       state.isLoggedIn = true;
     },
