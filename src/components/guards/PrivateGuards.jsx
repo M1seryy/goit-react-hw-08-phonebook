@@ -1,11 +1,9 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
-import { isLoggedSelector, tokenSelector } from 'redux/selectors'
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const PrivateGuard = ({children}) => {
-  const isAuth = useSelector(isLoggedSelector)
-  return isAuth ? children : <Navigate to={"/"}/>
-}
+const PrivateGuard = ({ children }) => {
+  const isAuth = localStorage.getItem('token');
+  return isAuth ? children : <Navigate to={'/'} />;
+};
 
-export default PrivateGuard
+export default PrivateGuard;

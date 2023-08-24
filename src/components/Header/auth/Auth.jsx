@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { createUser } from 'redux/apiRequests';
 import { loginUser } from 'redux/authSlice';
-import { isLoggedSelector, tokenSelector } from 'redux/selectors';
 import styles from './auth.module.css';
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const auth = useSelector(tokenSelector);
-  const navigate = useNavigate();
-  const isLogged = useSelector(isLoggedSelector);
 
   const postAuth = async e => {
     e.preventDefault();
@@ -32,7 +27,7 @@ const Auth = () => {
       email: e.target[0].value,
       password: e.target[1].value,
     };
-    dispatch(loginUser(body));
+    dispatch(loginUser(body)).unwrap().then(alert("You are logged IN"));
     e.target[0].value = '';
     e.target[1].value = '';
   };

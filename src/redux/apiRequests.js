@@ -12,31 +12,33 @@ const setTokenToLocal = token => {
 
 export const refresh = async () => {
   const token = localStorage.getItem('token');
-  token && setToken(JSON.parse(token));
-  setToken(token);
-  const { data } = await instanceAuth.get('/users/current');
-  setTokenToLocal(data.token);
-  return data;
+  setToken(JSON.parse(localStorage.getItem('token')));
+  setToken(JSON.parse(localStorage.getItem('token')));
+  if (token) {
+    const { data } = await instanceAuth('/users/current');
+    // setTokenToLocal(data.token);
+    return data;
+  }
 };
 
 const instanceContacts = axios.create({
-  baseURL: `https://64dccaede64a8525a0f726c5.mockapi.io`,
+  baseURL: `https://connections-api.herokuapp.com`,
 });
 const instanceAuth = axios.create({
   baseURL: `https://connections-api.herokuapp.com`,
 });
 export const getAllContacts = async () => {
-  const response = await instanceContacts('/getAll');
+  const response = await instanceContacts('/contacts');
   return response.data;
 };
 
 export const createNewContact = body => {
-  const response = instanceContacts.post('/getAll', body);
+  const response = instanceContacts.post('/contacts', body);
   console.log(response);
   return response;
 };
 export const deleteContact = id => {
-  instanceContacts.delete(`/getAll/${id}`);
+  instanceContacts.delete(`/contacts/${id}`);
   console.log(id);
   return id;
 };
@@ -47,16 +49,16 @@ export const createUser = async body => {
     'https://connections-api.herokuapp.com/users/signup',
     body
   );
-  setToken(data.token);
   setTokenToLocal(data.token);
+  setToken(data.token);
 };
 export const singUpUser = async user => {
   const { data } = await instanceAuth.post(
     `https://connections-api.herokuapp.com/users/login`,
     user
   );
-  setToken(data.token);
   setTokenToLocal(data.token);
+  setToken(data.token);
   return data;
 };
 export const logoutUser = async token => {
@@ -65,5 +67,6 @@ export const logoutUser = async token => {
     token
   );
   delToken(data.token);
+  localStorage.removeItem('token');
   return data;
 };

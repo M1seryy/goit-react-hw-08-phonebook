@@ -5,16 +5,17 @@ import ContactList from './ContactList';
 import Header from './Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import Auth from './Header/auth/Auth';
-import PublicGuard from './guards/PrivateGuards';
 import PrivateGuard from './guards/PrivateGuards';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isLoggedSelector } from 'redux/selectors';
-import { refresh, setToken } from 'redux/apiRequests';
+import { refreshTokenThunk } from 'redux/authSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(isLoggedSelector);
   useEffect(() => {
-    refresh();
-  }, []);
+    !isAuth && dispatch(refreshTokenThunk());
+  }, [isAuth, dispatch]);
   return (
     <>
       <Header />

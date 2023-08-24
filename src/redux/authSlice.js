@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { logoutUser, singUpUser } from './apiRequests';
+import { logoutUser, refresh, singUpUser } from './apiRequests';
 
 export const loginUser = createAsyncThunk('auth/login', async user => {
   return await singUpUser(user);
@@ -7,6 +7,10 @@ export const loginUser = createAsyncThunk('auth/login', async user => {
 
 export const logoutThunk = createAsyncThunk('auth/logout', async token => {
   return await logoutUser(token);
+});
+
+export const refreshTokenThunk = createAsyncThunk('auth/refresh', async () => {
+  return await refresh();
 });
 const initialState = {
   profile: null,
@@ -23,11 +27,19 @@ const authSlice = createSlice({
       state.profile = payload.user;
       state.isLoggedIn = true;
     },
-    [logoutThunk.fulfilled]: (state, { payload }) => {
+    [logoutThunk.fulfilled]: state => {
       state.profile = null;
       state.token = null;
       state.isLoggedIn = false;
       state.isRefreshing = false;
+    },
+    [refreshTokenThunk.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.profile = payload;
+      state.isLoggedIn = true;
+    },
+    [refreshTokenThunk.rejected]: (store, { payload }) => {
+      store.token = '';
     },
   },
 });
