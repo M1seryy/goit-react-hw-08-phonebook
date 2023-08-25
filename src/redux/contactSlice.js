@@ -37,7 +37,7 @@ const contactSlice = createSlice({
     },
     [getAllThunk.rejected]: (state, { payload }) => {
       state.contacts.isLoading = false;
-      state.contacts.error = payload.message;
+      // state.contacts.error = payload.message;
     },
   },
 });

@@ -19,9 +19,6 @@ export const refresh = async () => {
   }
 };
 
-// const instanceContacts = axios.create({
-//   baseURL: `https://connections-api.herokuapp.com`,
-// });
 const instanceAuth = axios.create({
   baseURL: `https://connections-api.herokuapp.com`,
 });

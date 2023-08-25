@@ -10,6 +10,7 @@ import {
   loadingSelector,
 } from 'redux/selectors';
 import { deleteThunk, getAllThunk } from 'redux/contactSlice';
+import { refreshTokenThunk } from 'redux/authSlice';
 
 const ContactList = () => {
   const filter = useSelector(filterSelector);
@@ -18,10 +19,11 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const onDeleteItem = id => {
-    dispatch(deleteThunk(id))
+    dispatch(deleteThunk(id));
   };
 
   useEffect(() => {
+    dispatch(refreshTokenThunk());
     dispatch(getAllThunk());
   }, [dispatch]);
 

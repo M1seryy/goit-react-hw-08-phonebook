@@ -17,15 +17,21 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  error: null,
 };
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
+    [loginUser.pending]: state => {
+      state.error = null;
+    },
     [loginUser.fulfilled]: (state, { payload }) => {
       state.token = payload.token;
       state.profile = payload.user;
       state.isLoggedIn = true;
+    },
+    [loginUser.rejected]: (state, { payload }) => {
     },
     [logoutThunk.fulfilled]: state => {
       state.profile = null;
@@ -38,6 +44,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [refreshTokenThunk.rejected]: (store, { payload }) => {
+      console.log(payload.message);
       store.token = '';
     },
   },

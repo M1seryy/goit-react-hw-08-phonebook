@@ -4,3 +4,4 @@ export const filterSelector = state => state.filter.filter;
 export const tokenSelector = state => state.auth.token;
 export const userSelector = state => state.auth.profile;
 export const isLoggedSelector = state => state.auth.isLoggedIn;
+export const errorSelector = state => state.auth.error;
