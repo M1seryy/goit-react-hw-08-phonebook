@@ -1,15 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from 'redux/apiRequests';
 import { loginUser } from 'redux/authSlice';
-import { errorSelector } from 'redux/selectors';
 import styles from './auth.module.css';
 
 const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const errorMessage = useSelector(errorSelector);
   const postAuth = async e => {
     e.preventDefault();
     const body = {
